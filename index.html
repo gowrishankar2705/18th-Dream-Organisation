@@ -325,12 +325,10 @@ body{overflow-x:clip}
 <script>
 var CONTACT_EMAIL="gowrishankarselvaraj27@gmail.com";
 document.getElementById("f").addEventListener("submit",function(e){e.preventDefault();
-var v=function(i){return document.getElementById(i)},fs=v("fs"),sb=v("sb"),bad=[v("n"),v("m")].filter(function(x){var o=!x.value.trim();x.setAttribute("aria-invalid",o);return o});
+var v=function(i){return document.getElementById(i)},fs=v("fs"),bad=[v("n"),v("m")].filter(function(x){var o=!x.value.trim();x.setAttribute("aria-invalid",o);return o});
 if(bad.length){fs.textContent="Please fill in your name and a message.";bad[0].focus();return}
-var d={name:v("n").value.trim(),organisation:v("o").value.trim(),enquiry:v("t").value,message:v("m").value.trim(),_subject:"18th Dream enquiry: "+v("t").value,_template:"table"};
-function fb(){fs.textContent="We couldn't send it directly, so your email app is opening instead. Press send there to finish.";location.href="mailto:"+CONTACT_EMAIL+"?subject="+encodeURIComponent(d._subject)+"&body="+encodeURIComponent("Name: "+d.name+"\nOrganisation: "+d.organisation+"\n\n"+d.message)}
-sb.disabled=true;fs.textContent="Sending\u2026";
-fetch("https://formsubmit.co/ajax/"+CONTACT_EMAIL,{method:"POST",headers:{"Content-Type":"application/json",Accept:"application/json"},body:JSON.stringify(d)}).then(function(r){return r.json()}).then(function(j){if(j.success===true||j.success==="true"){fs.textContent="Thank you! Your message has been sent. We'll get back to you soon.";v("f").reset()}else fb()}).catch(fb).then(function(){sb.disabled=false})});
+fs.textContent="Opening your email app with your message ready\u2026";
+location.href="mailto:"+CONTACT_EMAIL+"?subject="+encodeURIComponent("18th Dream: "+v("t").value)+"&body="+encodeURIComponent("Name: "+v("n").value+"\nOrganisation: "+v("o").value+"\n\n"+v("m").value)});
 var L=[].slice.call(document.querySelectorAll("nav a")),S=L.map(function(a){return document.querySelector(a.getAttribute("href"))});
 function spy(){var y=scrollY+120,k=0;S.forEach(function(s,i){if(s.offsetTop<=y)k=i});L.forEach(function(a,i){a.classList.toggle("on",i==k)});document.getElementById("top").classList.toggle("s",scrollY>600)}
 addEventListener("scroll",spy,{passive:true});spy();
